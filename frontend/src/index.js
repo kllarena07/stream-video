@@ -10,8 +10,3 @@ ws.addEventListener("open", () => {
 ws.addEventListener("error", error => console.log(error));
 
 ws.addEventListener("close", () => ws.close());
-// const event_source = new EventSource(`http://127.0.0.1:3000/video`);
-
-// event_source.addEventListener("message", (e) => {
-//   img.src = e.data;
-// });
