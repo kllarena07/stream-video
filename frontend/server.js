@@ -16,15 +16,22 @@ const staticDir = path.join(__dirname, 'src');
 
 const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 
-app.get("/video", (req, res) => {
-  res.setHeader("Content-Type", "text/event-stream");
+let clients = [];
 
 wss.addListener("connection", (ws, req) => {
-  const { query: { token } } = url.parse(req.url, true);
+  const { query: { id } } = url.parse(req.url, true);
+  
+  console.log("New connection, ", id);
 
-wss.addListener("connection", ws => {
+  clients.push({
+    id,
+    socket: ws
+  })
+
   ws.on('message', (data) => {
-    console.log(data);
+    for (let { id, socket } of clients) {
+      if (id != "sender") socket.send(data.toString('utf-8'));
+    }
   });
 });
 
