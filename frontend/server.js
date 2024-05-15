@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { WebSocketServer } from 'ws';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -8,6 +9,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 const staticDir = path.join(__dirname, 'src');
 
