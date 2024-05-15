@@ -30,7 +30,7 @@ wss.addListener("connection", (ws, req) => {
 
   ws.on('message', (data) => {
     for (let { type, socket } of clients) {
-      if (type != "sender") socket.send(data.toString('utf-8'));
+      if (type !== "sender") socket.send(data.toString('utf-8'));
     }
   });
 
