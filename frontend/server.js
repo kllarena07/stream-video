@@ -1,4 +1,5 @@
 import express from 'express';
+import { WebSocketServer } from 'ws';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -9,6 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const staticDir = path.join(__dirname, 'src');
+
+const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
+
+wss.addListener("connection", ws => {
+  ws.on('message', (data) => {
+    console.log(data.toString('utf-8'));
+  });
+});
 
 app.use(express.static(staticDir));
 
