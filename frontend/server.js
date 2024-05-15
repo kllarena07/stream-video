@@ -16,6 +16,12 @@ const staticDir = path.join(__dirname, 'src');
 
 const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 
+app.get("/video", (req, res) => {
+  res.setHeader("Content-Type", "text/event-stream");
+
+  res.write(`data: ${data}\n\n`);
+});
+
 wss.addListener("connection", ws => {
   ws.on('message', (data) => {
     console.log(data);

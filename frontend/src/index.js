@@ -1,8 +1,7 @@
-const submit = document.querySelector("button")
-const input = document.querySelector("input")
-const pre = document.querySelector("pre")
-submit.addEventListener("click", async () => {
-  const response = await fetch(`http://127.0.0.1:5000/endpoint/${input.value}`)
-  const json = await response.json()
-  pre.textContent = JSON.stringify(json)
+window.addEventListener("load", () => {
+  const event_source = new EventSource(`http://127.0.0.1:3000/video`);
+
+  event_source.addEventListener("message", (e) => {
+    console.log(e);
+  });
 })
