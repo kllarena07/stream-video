@@ -33,6 +33,10 @@ wss.addListener("connection", (ws, req) => {
       if (type != "sender") socket.send(data.toString('utf-8'));
     }
   });
+
+  ws.addEventListener("close", () => {
+    console.log("Disconnected,", type);
+  });
 });
 
 app.use(express.static(staticDir));
