@@ -19,12 +19,13 @@ const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 let clients = [];
 
 wss.addListener("connection", (ws, req) => {
-  const { query: { type } } = url.parse(req.url, true);
+  const { query: { type, uid } } = url.parse(req.url, true);
 
-  console.log("Connected,", type);
+  console.log("Connected,", type, uid);
 
   clients.push({
     type,
+    uid,
     socket: ws
   });
 
@@ -35,7 +36,9 @@ wss.addListener("connection", (ws, req) => {
   });
 
   ws.addEventListener("close", () => {
-    console.log("Disconnected,", type);
+    console.log("Disconnected,", type, uid);
+
+    clients = clients.filter(client => client.uid !== uid);
   });
 });
 
