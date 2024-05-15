@@ -11,7 +11,7 @@ const main = async () => {
 
   video.pause();
 
-  const ws = new WebSocket("ws://127.0.0.1:8080");
+  const ws = new WebSocket("ws://127.0.0.1:8080?id=sender");
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   

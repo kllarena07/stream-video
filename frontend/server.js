@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';
-import { fileURLToPath } from 'url';
+import url, { fileURLToPath } from 'url';
 import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,8 +19,8 @@ const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 app.get("/video", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
 
-  res.write(`data: ${data}\n\n`);
-});
+wss.addListener("connection", (ws, req) => {
+  const { query: { token } } = url.parse(req.url, true);
 
 wss.addListener("connection", ws => {
   ws.on('message', (data) => {
