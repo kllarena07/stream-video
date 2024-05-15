@@ -19,18 +19,18 @@ const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 let clients = [];
 
 wss.addListener("connection", (ws, req) => {
-  const { query: { id } } = url.parse(req.url, true);
-  
-  console.log("New connection, ", id);
+  const { query: { type } } = url.parse(req.url, true);
+
+  console.log("Connected,", type);
 
   clients.push({
-    id,
+    type,
     socket: ws
-  })
+  });
 
   ws.on('message', (data) => {
-    for (let { id, socket } of clients) {
-      if (id != "sender") socket.send(data.toString('utf-8'));
+    for (let { type, socket } of clients) {
+      if (type != "sender") socket.send(data.toString('utf-8'));
     }
   });
 });

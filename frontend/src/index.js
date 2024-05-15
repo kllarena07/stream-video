@@ -1,5 +1,5 @@
 const img = document.querySelector('img');
-const ws = new WebSocket("ws://127.0.0.1:8080?id=reciever");
+const ws = new WebSocket("ws://127.0.0.1:8080?type=reciever");
 
 ws.addEventListener("open", () => {
   ws.addEventListener("message", ({ data }) => {
