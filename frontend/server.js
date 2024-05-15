@@ -15,7 +15,7 @@ const wss = new WebSocketServer({ host: "127.0.0.1", port: 8080 });
 
 wss.addListener("connection", ws => {
   ws.on('message', (data) => {
-    console.log(data.toString('utf-8'));
+    console.log(data);
   });
 });
 
